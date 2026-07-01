@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EXPLOREZ – Smart Product Comparison & Price Tracking Platform. Research Smart. Buy Better." />
+  <meta name="keywords" content="product comparison, price tracker, reviews, deals, Nepal, smartphones, laptops" />
+  <title>EXPLOREZ – Research Smart. Buy Better.</title>
+
+  <!-- Google Fonts: Space Grotesk  + DM Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Space Grotesk :wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER / NAVIGATION
+     Sticky top bar with logo, nav links, search, and auth buttons
+     ============================================================ -->
+<header class="header" id="header">
+  <div class="header-inner">
+
+    <!-- Logo: clicking refreshes page and scrolls to top -->
+    <a href="index.html" class="logo" id="logoLink" onclick="scrollToTop(event)">
+      <span class="logo-icon"><i class="fa-solid fa-compass"></i></span>
+      <span class="logo-text">EXPLOREZ</span>
+    </a>
+
+    <!-- Center Navigation Links -->
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" class="nav-link" data-section="home">Home</a>
+      <a href="#compare" class="nav-link" data-section="compare">Compare</a>
+      <a href="#price-tracker" class="nav-link" data-section="price-tracker">Price Tracker</a>
+      <a href="#reviews" class="nav-link" data-section="reviews">Reviews</a>
+      <a href="#deals" class="nav-link" data-section="deals">Deals</a>
+      <a href="#news" class="nav-link" data-section="news">News</a>
+      <a href="#blog" class="nav-link" data-section="blog">Blog</a>
+      <a href="#about" class="nav-link" data-section="about">About</a>
+    </nav>
+
+    <!-- Right: Search + Auth Buttons -->
+    <div class="header-right">
+      <div class="search-wrapper" id="headerSearch">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="header-search-input" id="headerSearchInput" placeholder="Search products..." autocomplete="off" />
+        <div class="search-dropdown" id="headerSearchDropdown"></div>
+      </div>
+      <button class="btn-login" onclick="openLoginModal()">Login</button>
+      <button class="btn-signup" onclick="openSignupModal()">Sign Up</button>
+      <!-- Hamburger for mobile -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<!-- END HEADER -->
+
+<!-- ============================================================
+     HERO SECTION
+     Main headline, subtext, CTA buttons, product cards, charts
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-inner">
+
+    <!-- Left: Text content -->
+    <div class="hero-content" data-animate="fade-up">
+      <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Nepal's #1 Product Intelligence Platform</div>
+      <h1 class="hero-title">Find the Best Product<br /><span class="gradient-text">Before You Buy</span></h1>
+      <p class="hero-sub">Compare prices,  analyze trends, read expert reviews, and discover the smartest purchase decisions — all in one place.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="scrollToSection('compare')">
+          <i class="fa-solid fa-scale-balanced"></i> Compare Products
+        </button>
+        <button class="btn-outline" onclick="scrollToSection('price-tracker')">
+          <i class="fa-solid fa-chart-line"></i> Track Prices
+        </button>
+      </div>
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <div class="badge"><i class="fa-solid fa-shield-halved"></i> Verified Data</div>
+        <div class="badge"><i class="fa-solid fa-users"></i> 50K+ Users</div>
+        <div class="badge"><i class="fa-solid fa-star"></i> 10K+ Reviews</div>
+        <div class="badge"><i class="fa-solid fa-database"></i> 5K+ Products</div>
+      </div>
+    </div>
+
+    <!-- Right: Interactive Cards + Chart -->
+    <div class="hero-visual" data-animate="fade-left">
+      <!-- Floating product card 1 -->
+      <div class="float-card card-1">
+        <div class="fc-img"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <div class="fc-info">
+          <span class="fc-name">iPhone 16 Pro</span>
+          <span class="fc-price">Rs. 1,89,000</span>
+        </div>
+        <div class="fc-drop green"><i class="fa-solid fa-arrow-down"></i> 4%</div>
+      </div>
+      <!-- Floating product card 2 -->
+      <div class="float-card card-2">
+        <div class="fc-img laptop"><i class="fa-solid fa-laptop"></i></div>
+        <div class="fc-info">
+          <span class="fc-name">MacBook Air M3</span>
+          <span class="fc-price">Rs. 1,45,000</span>
+        </div>
+        <div class="fc-drop red"><i class="fa-solid fa-arrow-up"></i> 2%</div>
+      </div>
+      
+      <!-- Floating alert -->
+      <div class="float-alert">
+        <i class="fa-solid fa-bell"></i>
+        <span>Price drop alert! Redmi Note 14 Pro dropped by Rs. 2,500</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <i class="fa-solid fa-chevron-down bounce"></i>
+  </div>
+</section>
+<!-- END HERO -->
+
+<!-- ============================================================
+     SMART SEARCH SECTION
+     Full-width search bar with autocomplete and trending terms
+     ============================================================ -->
+<section class="search-section" id="search-section">
+  <div class="container">
+    <div class="search-box-wrapper" data-animate="fade-up">
+      <h2 class="section-mini-title">Smart Search</h2>
+      <div class="big-search-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="mainSearchInput" placeholder="Search smartphones, laptops, bikes, cars, TVs..." autocomplete="off" />
+        <button class="search-btn" onclick="performSearch()">Search</button>
+        <div class="search-autocomplete" id="mainAutoComplete"></div>
+      </div>
+      <div class="search-tags">
+        <span class="tag-label">Popular:</span>
+        <button class="search-tag" onclick="fillSearch('iPhone 16 Pro')">iPhone 16 Pro</button>
+        <button class="search-tag" onclick="fillSearch('Samsung S25')">Samsung S25</button>
+        <button class="search-tag" onclick="fillSearch('MacBook Air M3')">MacBook Air M3</button>
+        <button class="search-tag" onclick="fillSearch('Yamaha R15')">Yamaha R15</button>
+        <button class="search-tag" onclick="fillSearch('Sony 55 4K TV')">Sony 55" 4K TV</button>
+        <button class="search-tag" onclick="fillSearch('Dell XPS 15')">Dell XPS 15</button>
+      </div>
+      <div class="recent-searches" id="recentSearches">
+        <span class="tag-label">Recent:</span>
+        <!-- Dynamically populated by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END SEARCH SECTION -->
+
+<!-- ============================================================
+     FEATURES SECTION
+     8 premium feature cards with icons, descriptions, hover effects
+     ============================================================ -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Why EXPLOREZ?</span>
+      <h2 class="section-title">Everything You Need to Buy Smart</h2>
+      <p class="section-sub">Powered by real-time data and expert intelligence</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature 1: Price Tracking -->
+      <div class="feature-card" data-animate="fade-up" data-delay="0">
+        <div class="feature-icon" style="--icon-color:#2563eb;">
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <h3>Price Tracking</h3>
+        <p>Monitor real-time price changes across multiple stores. Get instant alerts when prices drop to your target.</p>
+        <a class="feature-link" href="#price-tracker" onclick="scrollToSection('price-tracker')">Track now <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- Feature 2: Product Comparison -->
+      <div class="feature-card" data-animate="fade-up" data-delay="1">
+        <div class="feature-icon" style="--icon-color:#7c3aed;">
+          <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+        <h3>Product Comparison</h3>
+        <p>Compare specs side-by-side with smart highlights for best value, best performance, and budget picks.</p>
+        <a class="feature-link" href="#compare" onclick="scrollToSection('compare')">Compare now <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- Feature 3: Expert Reviews -->
+      <div class="feature-card" data-animate="fade-up" data-delay="2">
+        <div class="feature-icon" style="--icon-color:#059669;">
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <h3>Expert Reviews</h3>
+        <p>In-depth analysis from tech experts with benchmark scores, camera tests, and battery performance data.</p>
+        <a class="feature-link" href="#reviews" onclick="scrollToSection('reviews')">Read reviews <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- Feature 4: Community Opinions -->
+      <div class="feature-card" data-animate="fade-up" data-delay="3">
+        <div class="feature-icon" style="--icon-color:#d97706;">
+          <i class="fa-solid fa-comments"></i>
+        </div>
+        <h3>Community Opinions</h3>
+        <p>Aggregate real user opinions from Reddit, YouTube, and social media for a complete picture.</p>
+        <a class="feature-link" href="#social" onclick="scrollToSection('social')">See opinions <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- Feature 5: Budget Estimation -->
+      <div class="feature-card" data-animate="fade-up" data-delay="4">
+        <div class="feature-icon" style="--icon-color:#0891b2;">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <h3>Budget Estimation</h3>
+        <p>Calculate total ownership cost including accessories, EMI, insurance, and hidden charges.</p>
+        <a class="feature-link" href="#budget" onclick="scrollToSection('budget')">Estimate cost <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- Feature 6: Deal Alerts -->
+      <div class="feature-card" data-animate="fade-up" data-delay="5">
+        <div class="feature-icon" style="--icon-color:#dc2626;">
+          <i class="fa-solid fa-bell"></i>
+        </div>
+        <h3>Deal Alerts</h3>
+        <p>Never miss flash sales, festival discounts, and limited-time offers from top Nepali stores.</p>
+        <a class="feature-link" href="#deals" onclick="scrollToSection('deals')">View deals <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- Feature 7: Buying Guides -->
+      <div class="feature-card" data-animate="fade-up" data-delay="6">
+        <div class="feature-icon" style="--icon-color:#7c3aed;">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <h3>Buying Guides</h3>
+        <p>Comprehensive guides for every category — phones, laptops, bikes, cars, and home appliances.</p>
+        <a class="feature-link" href="#blog" onclick="scrollToSection('blog')">Read guides <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <!-- Feature 8: Market News -->
+      <div class="feature-card" data-animate="fade-up" data-delay="7">
+        <div class="feature-icon" style="--icon-color:#0369a1;">
+          <i class="fa-solid fa-newspaper"></i>
+        </div>
+        <h3>Market News</h3>
+        <p>Stay updated with the latest tech news, launches, and market trends from Nepal and globally.</p>
+        <a class="feature-link" href="#news" onclick="scrollToSection('news')">Read news <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END FEATURES SECTION -->
+
+<!-- ============================================================
+     PRODUCT COMPARISON SECTION
+     Side-by-side product spec comparison with smart highlights
+     ============================================================ -->
+<section class="compare-section" id="compare">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Compare</span>
+      <h2 class="section-title">Product Comparison</h2>
+      <p class="section-sub">Select products and compare specs side by side</p>
+    </div>
+
+    <!-- Product selector -->
+    <div class="compare-selectors" data-animate="fade-up">
+      <div class="compare-selector-card" id="compareSlot1">
+        <div class="csc-placeholder" onclick="openProductPicker(1)">
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Product 1</span>
+        </div>
+      </div>
+      <div class="compare-vs">VS</div>
+      <div class="compare-selector-card" id="compareSlot2">
+        <div class="csc-placeholder" onclick="openProductPicker(2)">
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Product 2</span>
+        </div>
+      </div>
+      <div class="compare-vs">VS</div>
+      <div class="compare-selector-card" id="compareSlot3">
+        <div class="csc-placeholder" onclick="openProductPicker(3)">
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Product 3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison table (populated dynamically) -->
+    <div class="compare-table-wrapper" id="compareTableWrapper" style="display:none;">
+      <table class="compare-table" id="compareTable">
+        <thead id="compareTableHead"></thead>
+        <tbody id="compareTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Default product showcase (shown before comparison) -->
+    <div class="product-cards-row" id="defaultProductCards">
+      <!-- Dynamically rendered by JS -->
+    </div>
+  </div>
+</section>
+<!-- END COMPARE SECTION -->
+
+<!-- Product Picker Modal -->
+<div class="modal-overlay" id="productPickerModal" onclick="closeProductPicker(event)">
+  <div class="modal-box picker-box">
+    <button class="modal-close" onclick="closeProductPicker()"><i class="fa-solid fa-xmark"></i></button>
+    <h3 class="modal-title">Select a Product</h3>
+    <input type="text" class="picker-search" id="pickerSearchInput" placeholder="Search products..." oninput="filterPickerProducts()" />
+    <div class="picker-list" id="pickerList"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PRICE TRACKER SECTION
+     Live price graphs, trend switcher, best-time-to-buy
+     ============================================================ -->
+<section class="price-tracker-section" id="price-tracker">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Price Tracker</span>
+      <h2 class="section-title">Live Price Intelligence</h2>
+      <p class="section-sub">Track price history across stores with interactive charts</p>
+    </div>
+
+    <div class="tracker-layout">
+      <!-- Left: product selector + stats -->
+      <div class="tracker-sidebar" data-animate="fade-up">
+        <div class="tracker-select-wrapper">
+          <label>Select Product</label>
+          <select id="trackerProductSelect" onchange="updatePriceChart()">
+            <option value="0">iPhone 16 Pro</option>
+            <option value="1">Samsung Galaxy S25</option>
+            <option value="2">MacBook Air M3</option>
+            <option value="3">Yamaha R15 V4</option>
+            <option value="4">Sony Bravia 55" 4K</option>
+          </select>
+        </div>
+
+        <!-- Price stats cards -->
+        <div class="price-stat-cards">
+          <div class="psc">
+            <span class="psc-label">Current Price</span>
+            <span class="psc-value" id="statCurrent">Rs. 1,89,000</span>
+          </div>
+          <div class="psc low">
+            <span class="psc-label">Lowest Price</span>
+            <span class="psc-value green" id="statLow">Rs. 1,72,000</span>
+          </div>
+          <div class="psc high">
+            <span class="psc-label">Highest Price</span>
+            <span class="psc-value red" id="statHigh">Rs. 2,10,000</span>
+          </div>
+          <div class="psc avg">
+            <span class="psc-label">Average Price</span>
+            <span class="psc-value" id="statAvg">Rs. 1,90,500</span>
+          </div>
+        </div>
+
+        <!-- Best time to buy indicator -->
+        <div class="best-time-card">
+          <div class="btc-icon green"><i class="fa-solid fa-thumbs-up"></i></div>
+          <div class="btc-text">
+            <strong>Good Time to Buy</strong>
+            <span id="btcNote">Price is 10% below average. Buy now!</span>
+          </div>
+        </div>
+
+        <!-- Change indicators -->
+        <div class="price-changes">
+          <div class="pc-item">
+            <span>7-Day Change</span>
+            <span class="green" id="change7d">↓ 3.2%</span>
+          </div>
+          <div class="pc-item">
+            <span>30-Day Change</span>
+            <span class="red" id="change30d">↑ 1.8%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Chart area -->
+      <div class="tracker-chart-area" data-animate="fade-up">
+        <div class="chart-tab-row">
+          <button class="chart-tab active" onclick="switchChartTab('daily', this)">Daily</button>
+          <button class="chart-tab" onclick="switchChartTab('weekly', this)">Weekly</button>
+          <button class="chart-tab" onclick="switchChartTab('monthly', this)">Monthly</button>
+          <button class="chart-tab" onclick="switchChartTab('yearly', this)">Yearly</button>
+        </div>
+        <div class="chart-canvas-wrapper">
+          <canvas id="priceChart"></canvas>
+        </div>
+        <!-- Store comparison -->
+      <!-- <div class="store-prices-row">
+          <h4>Price Across Stores</h4>
+          <div class="store-price-list" id="storePriceList"></div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END PRICE TRACKER SECTION -->
+
+<!-- ============================================================
+     SEO PRODUCT ASSISTANT / RECOMMENDATION SECTION
+     Budget + category based smart recommendation engine
+     ============================================================ -->
+<section class="assistant-section" id="assistant">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">AI Assistant</span>
+      <h2 class="section-title">Smart Product Finder</h2>
+      <p class="section-sub">Tell us what you need — we'll find the best products for you</p>
+    </div>
+
+    <div class="assistant-layout">
+      <div class="assistant-form" data-animate="fade-up">
+        <div class="af-row">
+          <div class="af-group">
+            <label>Budget (NPR)</label>
+            <input type="number" id="afBudget" placeholder="e.g. 50000" min="5000" />
+          </div>
+          <div class="af-group">
+            <label>Category</label>
+            <select id="afCategory">
+              <option value="smartphone">Smartphone</option>
+              <option value="laptop">Laptop</option>
+              <option value="bike">Bike / Motorcycle</option>
+              <option value="tv">Television</option>
+              <option value="tablet">Tablet</option>
+              <option value="camera">Camera</option>
+            </select>
+          </div>
+        </div>
+        <div class="af-row">
+          <div class="af-group">
+            <label>Brand (Optional)</label>
+            <input type="text" id="afBrand" placeholder="e.g. Samsung, Apple, Yamaha" />
+          </div>
+          <div class="af-group">
+            <label>Use Case</label>
+            <select id="afUseCase">
+              <option value="gaming">Gaming</option>
+              <option value="editing">Video / Photo Editing</option>
+              <option value="students">Students</option>
+              <option value="office">Office / Business</option>
+              <option value="travel">Travel / Daily Use</option>
+              <option value="content">Content Creation</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary full-btn" onclick="getRecommendations()">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Find Best Products
+        </button>
+      </div>
+
+      <!-- Results area -->
+      <div class="assistant-results" id="assistantResults">
+        <div class="ar-placeholder">
+          <i class="fa-solid fa-robot"></i>
+          <p>Fill in the form and click "Find Best Products" to get personalized recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END ASSISTANT SECTION -->
+
+<!-- ============================================================
+     REVIEWS SECTION
+     Expert + User + Community reviews combined
+     ============================================================ -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Reviews</span>
+      <h2 class="section-title">Expert & Community Reviews</h2>
+      <p class="section-sub">Real ratings from verified experts and genuine users</p>
+    </div>
+
+    <div class="reviews-tabs">
+      <button class="rev-tab active" onclick="switchReviewTab('expert', this)">Expert Reviews</button>
+      <button class="rev-tab" onclick="switchReviewTab('user', this)">User Reviews</button>
+      <button class="rev-tab" onclick="switchReviewTab('community', this)">Community</button>
+    </div>
+
+    <div class="reviews-layout">
+      <!-- Overall score panel -->
+      <div class="review-score-panel" data-animate="fade-up">
+        <div class="rsp-circle">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="54" fill="none" stroke="#1e293b" stroke-width="8"/>
+            <circle cx="60" cy="60" r="54" fill="none" stroke="#2563eb" stroke-width="8"
+              stroke-dasharray="339" stroke-dashoffset="47" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="rsp-score">8.6</div>
+        </div>
+        <div class="rsp-label">Overall Score</div>
+        <div class="rsp-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+        <!-- Rating distribution -->
+        <div class="rating-dist">
+          <div class="rd-row"><span>5★</span><div class="rd-bar"><div class="rd-fill" style="width:62%"></div></div><span>62%</span></div>
+          <div class="rd-row"><span>4★</span><div class="rd-bar"><div class="rd-fill" style="width:21%"></div></div><span>21%</span></div>
+          <div class="rd-row"><span>3★</span><div class="rd-bar"><div class="rd-fill" style="width:10%"></div></div><span>10%</span></div>
+          <div class="rd-row"><span>2★</span><div class="rd-bar"><div class="rd-fill" style="width:4%"></div></div><span>4%</span></div>
+          <div class="rd-row"><span>1★</span><div class="rd-bar"><div class="rd-fill" style="width:3%"></div></div><span>3%</span></div>
+        </div>
+      </div>
+
+      <!-- Review cards -->
+      <div class="review-cards-area" id="reviewCardsArea" data-animate="fade-up">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END REVIEWS SECTION -->
+
+<!-- ============================================================
+     SOCIAL OPINION AGGREGATOR SECTION
+     Reddit / Twitter / YouTube sentiment analysis
+     ============================================================ -->
+<section class="social-section" id="social">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Social Intelligence</span>
+      <h2 class="section-title">What People Are Saying</h2>
+      <p class="section-sub">Aggregated opinions from Reddit, Twitter/X, and YouTube</p>
+    </div>
+
+    <div class="social-layout">
+      <!-- Sentiment donut chart -->
+      <div class="sentiment-chart-card" data-animate="fade-up">
+        <h3>Sentiment Analysis</h3>
+        <div class="donut-wrapper">
+          <canvas id="sentimentChart" width="220" height="220"></canvas>
+          <div class="donut-center">
+            <span class="dc-label">Positive</span>
+            <span class="dc-val green">74%</span>
+          </div>
+        </div>
+        <div class="sentiment-legend">
+          <div class="sl-item"><span class="sl-dot green"></span> Positive 74%</div>
+          <div class="sl-item"><span class="sl-dot gray"></span> Neutral 16%</div>
+          <div class="sl-item"><span class="sl-dot red"></span> Negative 10%</div>
+        </div>
+        <div class="ai-summary">
+          <i class="fa-solid fa-robot"></i>
+          <p id="aiSummaryText">Most users praise the camera quality and battery life. Common complaints involve the price point and lack of charger in box.</p>
+        </div>
+      </div>
+
+      <!-- Opinion cards from platforms -->
+      <div class="social-opinions" data-animate="fade-up">
+        <div class="opinion-platform-tabs">
+          <button class="op-tab active" onclick="switchOpinionTab('reddit', this)"><i class="fa-brands fa-reddit"></i> Reddit</button>
+          <button class="op-tab" onclick="switchOpinionTab('twitter', this)"><i class="fa-brands fa-x-twitter"></i> X/Twitter</button>
+          <button class="op-tab" onclick="switchOpinionTab('youtube', this)"><i class="fa-brands fa-youtube"></i> YouTube</button>
+        </div>
+        <div class="opinion-cards" id="opinionCards">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END SOCIAL SECTION -->
+
+<!-- ============================================================
+     BUDGET ESTIMATION SECTION
+     Electronics & Automobile cost calculator
+     ============================================================ -->
+<section class="budget-section" id="budget">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Budget Calculator</span>
+      <h2 class="section-title">Total Ownership Cost Estimator</h2>
+      <p class="section-sub">Know the true cost before you commit</p>
+    </div>
+
+    <div class="budget-tabs">
+      <button class="budget-tab active" onclick="switchBudgetTab('electronics', this)">
+        <i class="fa-solid fa-mobile-screen-button"></i> Electronics
+      </button>
+      <button class="budget-tab" onclick="switchBudgetTab('automobile', this)">
+        <i class="fa-solid fa-motorcycle"></i> Automobiles
+      </button>
+    </div>
+
+    <!-- Electronics Calculator -->
+    <div class="budget-calc" id="electronicsCalc" data-animate="fade-up">
+      <div class="calc-form">
+        <div class="calc-row">
+          <div class="calc-group">
+            <label>Product Price (Rs.)</label>
+            <input type="number" id="elProductPrice" placeholder="150000" oninput="calcElectronics()" />
+          </div>
+          <div class="calc-group">
+            <label>Accessories (Rs.)</label>
+            <input type="number" id="elAccessories" placeholder="5000" oninput="calcElectronics()" />
+          </div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-group">
+            <label>Warranty / Insurance (Rs.)</label>
+            <input type="number" id="elWarranty" placeholder="3000" oninput="calcElectronics()" />
+          </div>
+          <div class="calc-group">
+            <label>Expected Upgrades / Year (Rs.)</label>
+            <input type="number" id="elUpgrades" placeholder="2000" oninput="calcElectronics()" />
+          </div>
+        </div>
+      </div>
+      <div class="calc-result" id="elResult">
+        <div class="cr-label">Total Estimated Cost</div>
+        <div class="cr-value" id="elTotal">Rs. 0</div>
+        <div class="cr-breakdown" id="elBreakdown"></div>
+      </div>
+    </div>
+
+    <!-- Automobile Calculator -->
+    <div class="budget-calc hidden" id="automobileCalc" data-animate="fade-up">
+      <div class="calc-form">
+        <div class="calc-row">
+          <div class="calc-group">
+            <label>Vehicle Price (Rs.)</label>
+            <input type="number" id="autoPrice" placeholder="500000" oninput="calcAutomobile()" />
+          </div>
+          <div class="calc-group">
+            <label>Down Payment (Rs.)</label>
+            <input type="number" id="autoDown" placeholder="100000" oninput="calcAutomobile()" />
+          </div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-group">
+            <label>Loan Duration (Months)</label>
+            <input type="number" id="autoMonths" placeholder="36" oninput="calcAutomobile()" />
+          </div>
+          <div class="calc-group">
+            <label>Monthly Fuel Cost (Rs.)</label>
+            <input type="number" id="autoFuel" placeholder="5000" oninput="calcAutomobile()" />
+          </div>
+        </div>
+        <div class="calc-row">
+          <div class="calc-group">
+            <label>Annual Insurance (Rs.)</label>
+            <input type="number" id="autoInsurance" placeholder="15000" oninput="calcAutomobile()" />
+          </div>
+          <div class="calc-group">
+            <label>Annual Maintenance (Rs.)</label>
+            <input type="number" id="autoMaint" placeholder="10000" oninput="calcAutomobile()" />
+          </div>
+        </div>
+      </div>
+      <div class="calc-result" id="autoResult">
+        <div class="cr-label">Total Estimated Ownership Cost (3 Years)</div>
+        <div class="cr-value" id="autoTotal">Rs. 0</div>
+        <div class="cr-breakdown" id="autoBreakdown"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- END BUDGET SECTION -->
+
+<!-- ============================================================
+     DEALS SECTION
+     Flash sales, price drops, countdown timers
+     ============================================================ -->
+<section class="deals-section" id="deals">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Hot Deals</span>
+      <h2 class="section-title">Today's Best Deals</h2>
+      <p class="section-sub">Limited-time offers across Nepal's top stores</p>
+    </div>
+
+    <div class="deals-grid" id="dealsGrid" data-animate="fade-up">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+<!-- END DEALS SECTION -->
+
+<!-- ============================================================
+     NEWS SECTION
+     Tech news cards with categories
+     ============================================================ -->
+<section class="news-section" id="news">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">News</span>
+      <h2 class="section-title">Latest Tech News</h2>
+      <p class="section-sub">Stay updated with what's happening in tech</p>
+    </div>
+
+    <div class="news-category-tabs" data-animate="fade-up">
+      <button class="news-cat active" onclick="filterNews('all', this)">All</button>
+      <button class="news-cat" onclick="filterNews('smartphones', this)">Smartphones</button>
+      <button class="news-cat" onclick="filterNews('laptops', this)">Laptops</button>
+      <button class="news-cat" onclick="filterNews('automobiles', this)">Automobiles</button>
+      <button class="news-cat" onclick="filterNews('gaming', this)">Gaming</button>
+      <button class="news-cat" onclick="filterNews('ai', this)">AI</button>
+    </div>
+
+    <div class="news-grid" id="newsGrid" data-animate="fade-up">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+<!-- END NEWS SECTION -->
+
+<!-- ============================================================
+     BLOG SECTION
+     Professional blog cards with categories
+     ============================================================ -->
+<section class="blog-section" id="blog">
+  <div class="container">
+    <div class="section-header" data-animate="fade-up">
+      <span class="section-tag">Blog</span>
+      <h2 class="section-title">Buying Guides & Articles</h2>
+      <p class="section-sub">Expert-written guides to help you decide</p>
+    </div>
+
+    <div class="blog-grid" id="blogGrid" data-animate="fade-up">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+<!-- END BLOG SECTION -->
+
+<!-- ============================================================
+     ABOUT SECTION
+     Mission, vision, stats
+     ============================================================ -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="about-text" data-animate="fade-up">
+        <span class="section-tag">About EXPLOREZ</span>
+        <h2 class="section-title">Helping Nepalis Buy Smarter</h2>
+        <p class="about-mission">Our mission is to help every consumer make smarter purchasing decisions through transparency, comparison, and price intelligence. We aggregate data from hundreds of stores, combine expert analysis with real community opinions, and present it all in a simple, honest way.</p>
+        <p class="about-vision">We believe every person deserves access to the information that was previously only available to industry insiders. EXPLOREZ levels the playing field — whether you're buying a Rs. 10,000 phone or a Rs. 30 lakh car.</p>
+        <div class="about-goals">
+          <div class="ag-item"><i class="fa-solid fa-check-circle"></i> 100% Independent & Unbiased</div>
+          <div class="ag-item"><i class="fa-solid fa-check-circle"></i> Real-time price data from verified stores</div>
+          <div class="ag-item"><i class="fa-solid fa-check-circle"></i> Expert + Community review system</div>
+          <div class="ag-item"><i class="fa-solid fa-check-circle"></i> Privacy-first, no data selling</div>
+        </div>
+      </div>
+      <div class="about-stats" data-animate="fade-up">
+        <div class="stat-card">
+          <div class="stat-num" data-target="50000">0</div>
+          <div class="stat-label">Happy Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="5000">0</div>
+          <div class="stat-label">Products Tracked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="200">0</div>
+          <div class="stat-label">Stores Monitored</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" data-target="10000">0</div>
+          <div class="stat-label">Expert Reviews</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END ABOUT SECTION -->
+
+<!-- ============================================================
+     FOOTER
+     Links, social, copyright
+     ============================================================ -->
+<footer class="footer" id="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo" onclick="scrollToTop(event)">
+        <span class="logo-icon"><i class="fa-solid fa-compass"></i></span>
+        <span class="logo-text">EXPLOREZ</span>
+      </a>
+      <p>Research Smart. Buy Better.</p>
+      <div class="footer-social">
+  <a href="https://www.facebook.com/share/18i8fBWCNh/" target="_blank" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
+
+  <a href="https://instagram.com/yourusername" target="_blank" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <a href="https://x.com/yourusername" target="_blank" aria-label="Twitter">
+    <i class="fa-brands fa-x-twitter"></i>
+  </a>
+
+  <a href="https://youtube.com/@yourchannel" target="_blank" aria-label="YouTube">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
+
+  <a href="https://reddit.com/user/yourusername" target="_blank" aria-label="Reddit">
+    <i class="fa-brands fa-reddit-alien"></i>
+  </a>
+</div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#about" onclick="scrollToSection('about')">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <a href="#compare" onclick="scrollToSection('compare')">Compare</a>
+      <a href="#price-tracker" onclick="scrollToSection('price-tracker')">Price Tracker</a>
+      <a href="#deals" onclick="scrollToSection('deals')">Deals</a>
+      <a href="#assistant" onclick="scrollToSection('assistant')">AI Assistant</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#blog" onclick="scrollToSection('blog')">Blog</a>
+      <a href="#news" onclick="scrollToSection('news')">News</a>
+      <a href="#reviews" onclick="scrollToSection('reviews')">Reviews</a>
+      <a href="#">API Docs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Help Center</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Report an Issue</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>EXPLOREZ &copy; 2026 – All Rights Reserved.</span>
+    <span>Made with <i class="fa-solid fa-heart red"></i> in Nepal</span>
+  </div>
+</footer>
+<!-- END FOOTER -->
+
+<!-- ============================================================
+     PRODUCT DETAILS MODAL
+     Full-detail popup with specs, performance, recommendations
+     ============================================================ -->
+<div class="modal-overlay" id="detailsModal" onclick="closeDetailsModal(event)">
+  <div class="modal-box details-modal-box" id="detailsModalInner">
+    <button class="modal-close" onclick="closeDetailsModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div id="detailsModalContent">
+      <!-- Populated by JS: openDetailsModal() -->
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     LOGIN MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="loginModal" onclick="closeLoginModal(event)">
+  <div class="modal-box auth-box">
+    <button class="modal-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="auth-logo"><i class="fa-solid fa-compass"></i> EXPLOREZ</div>
+    <h3 class="modal-title">Welcome Back</h3>
+    <div class="auth-form">
+      <input type="email" class="auth-input" placeholder="Email Address" />
+      <input type="password" class="auth-input" placeholder="Password" />
+      <button class="btn-primary full-btn" onclick="handleLogin()">Login</button>
+      <p class="auth-switch">Don't have an account? <a onclick="switchToSignup()">Sign Up</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SIGNUP MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="signupModal" onclick="closeSignupModal(event)">
+  <div class="modal-box auth-box">
+    <button class="modal-close" onclick="closeSignupModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="auth-logo"><i class="fa-solid fa-compass"></i> EXPLOREZ</div>
+    <h3 class="modal-title">Create Account</h3>
+    <div class="auth-form">
+      <input type="text" class="auth-input" placeholder="Full Name" />
+      <input type="email" class="auth-input" placeholder="Email Address" />
+      <input type="password" class="auth-input" placeholder="Password" />
+      <input type="password" class="auth-input" placeholder="Confirm Password" />
+      <button class="btn-primary full-btn" onclick="handleSignup()">Create Account</button>
+      <p class="auth-switch">Already have an account? <a onclick="switchToLogin()">Login</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Back to top button -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- External JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
